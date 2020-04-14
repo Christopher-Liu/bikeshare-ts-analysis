@@ -24,6 +24,7 @@ fit_hw.params
 bike_plot = bike.plot(figsize = (10,6), title = "Holt-Winters' Method Bike Share Fit")
 bike_plot.set_ylabel("Number of Bike rentals")
 bike_plot.set_xlabel("Year")
+
 fit_hw.fittedvalues.plot(ax = bike_plot, style = '--', color = 'DarkRed')
 bike_plot.legend(['Bike Rentals', 'H-W Model Fit'])
 
