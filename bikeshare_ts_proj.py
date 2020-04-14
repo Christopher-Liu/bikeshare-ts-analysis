@@ -5,7 +5,7 @@ from statsmodels.tsa.api import ExponentialSmoothing
 
 
 # Load CSV and set index to be monthly times
-bike = pd.read_csv('./rides_monthly_aggregate.csv', usecols = [1])
+bike = pd.read_csv('./data/rides_monthly_aggregate.csv', usecols = [1])
 bike.set_index(pd.period_range('1/1/2013', freq='M', periods=84), inplace = True)
 
 # See if data frame was created properly
