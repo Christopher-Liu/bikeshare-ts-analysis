@@ -20,6 +20,10 @@ fig = sm.graphics.tsa.plot_acf(bike['num_rides'], lags=36, ax=axes[0])
 fig = sm.graphics.tsa.plot_pacf(bike['num_rides'], lags=36, ax=axes[1])
 
 
+###############################
+# Exponential Smoothing Model
+###############################
+
 # Fit a Holt-Winters model with additive trend and seasonality to our data
 fit_hw = ExponentialSmoothing(bike['num_rides'], seasonal_periods = 12, trend = 'add', seasonal = 'add').fit()
 
@@ -48,8 +52,10 @@ fig.legend(['Bike Rentals', 'H-W Forecast'])
 
 
 
+###############################
+# Seasonal ARIMA
+###############################
 
-# Trying out the Seasonal ARIMA model
 # Since we see clear seasonality in the data, we'll first try season differencing. The seasonally
 # differenced data looks much closer to being stationary
 bike['seasonal_diff'] = bike.diff(periods = 12)
@@ -66,12 +72,29 @@ fig = sm.graphics.tsa.plot_acf(bike['seasonal_diff'].iloc[12:], lags=36, ax=axes
 fig = sm.graphics.tsa.plot_pacf(bike['seasonal_diff'].iloc[12:], lags=36, ax=axes[1])
 
 
+# Create a dataframe to iterate over potential values of p and q for the ARIMA(p,d,q)(P,D,Q)m 
+# model in order to select the optimal model (lowest AICc value). Note that we are not iterating
+# over different values of the seasonal parameters.
+sarima_models = pd.DataFrame(np.zeros((3,2), dtype=float))
+for p in range(3):
+    for q in range(2):
+        fit_sarima = SARIMAX(bike['num_rides'], order = (p,0,q), seasonal_order=(1,1,0,12)).fit()
+
+        try:
+            sarima_models.iloc[p,q] = fit_sarima.aicc
+        except:
+            sarima_models.iloc[p,q] = np.nan
+
+sarima_models
+
+
+# The model with the lowest AICc had p = q = 1, so we fit an ARIMA(1,0,1)(1,1,0)12 model
 fit_sarima = SARIMAX(bike['num_rides'], order = (1,0,1), seasonal_order=(1,1,0,12)).fit()
 
 fit_sarima.resid.plot()
 
 
-bike_plot = bike['num_rides'].plot(figsize = (10,6), title = "SARIMA Model Bike Share Fit")
+bike_plot = bike['num_rides'].plot(figsize = (10,6), title = "Seasonal ARIMA Model Bike Share Fit")
 bike_plot.set_ylabel("Number of Bike rentals")
 bike_plot.set_xlabel("Year")
 
