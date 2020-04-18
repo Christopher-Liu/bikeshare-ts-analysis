@@ -25,7 +25,7 @@ fig = sm.graphics.tsa.plot_pacf(bike['num_rides'], lags=36, ax=axes[1])
 ###############################
 
 # Fit a Holt-Winters model with additive trend and seasonality to our data
-fit_hw = ExponentialSmoothing(bike['num_rides'], seasonal_periods = 12, trend = 'add', seasonal = 'add').fit()
+fit_hw = ExponentialSmoothing(bike['num_rides'], seasonal_periods = 12, trend = 'add', seasonal = 'add', damped = True).fit()
 
 # Plotting the H-W model's fitted values alongside the true data
 bike_plot = bike['num_rides'].plot(figsize = (10,6), title = "Holt-Winters' Method Bike Share Fit")
