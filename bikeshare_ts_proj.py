@@ -98,9 +98,8 @@ sarima_models
 # The model with the lowest AICc had p = q = 1, so we fit an ARIMA(1,0,1)(1,1,0)12 model
 fit_sarima = SARIMAX(bike['num_rides'], order = (1,0,1), seasonal_order=(1,1,0,12)).fit()
 
-fit_sarima.resid.iloc[12:].plot()
-
 fit_sarima.summary()
+
 
 # SARIMA model fit
 bike_plot = bike['num_rides'].plot(figsize = (10,6), title = "Seasonal ARIMA Model Bike Share Fit")
@@ -119,9 +118,11 @@ fig = fit_sarima.resid.iloc[12:].plot(title="H-W Method Residual Plot", ax=axes[
 
 
 # SARIMA forecast
-bike_plot = bike['num_rides'].plot(figsize = (10,6), title = "Seasonal ARIMA Model Forecast")
-fit_sarima.forecast(12).plot(ax = ax,style = '--', color = 'DarkOrange')
+pred_int = fit_sarima.get_forecast(12).conf_int()
 
+bike_plot = bike['num_rides'].plot(figsize = (10,6), title = "Seasonal ARIMA Model Forecast")
+fit_sarima.forecast(12).plot(ax = bike_plot,style = '--', color = 'DarkOrange')
+bike_plot.fill_between(fit_sarima.forecast(12).index, pred_int.iloc[:,0], pred_int.iloc[:,1], alpha=0.15)
 
 
 
