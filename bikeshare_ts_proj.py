@@ -118,12 +118,13 @@ fig = fit_sarima.resid.iloc[12:].plot(title="H-W Method Residual Plot", ax=axes[
 
 
 # SARIMA forecast
+# Getting prediction interval boundaries
 pred_int = fit_sarima.get_forecast(12).conf_int()
 
 bike_plot = bike['num_rides'].plot(figsize = (10,6), title = "Seasonal ARIMA Model Forecast")
 fit_sarima.forecast(12).plot(ax = bike_plot,style = '--', color = 'DarkOrange')
 bike_plot.fill_between(fit_sarima.forecast(12).index, pred_int.iloc[:,0], pred_int.iloc[:,1], alpha=0.15)
-
+bike_plot.legend(['Bike Rentals', 'SARIMA Forecast'], loc='upper left')
 
 
 # Plotting the SARIMA and H-W forecasts together. We see that the H-W model forecasts greater
