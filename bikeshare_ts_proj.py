@@ -39,6 +39,13 @@ bike_plot.legend(['Bike Rentals', 'H-W Model Fit'])
 np.average(np.absolute((fit_hw.fittedvalues - bike['num_rides']) / bike['num_rides']))
 
 
+# Plotting residuals and QQ-plot to check model assumptions
+fig, axes = plt.subplots(1, 2, figsize=(10,4))
+
+fig = sm.qqplot(fit_hw.resid, line='45', fit=True, ax=axes[0])
+fig = fit_hw.resid.plot(title="H-W Method Residual Plot", ax=axes[1]);
+
+
 # Then for making forecasts with the H-W model
 fit_hw.forecast(12)
 
@@ -91,16 +98,29 @@ sarima_models
 # The model with the lowest AICc had p = q = 1, so we fit an ARIMA(1,0,1)(1,1,0)12 model
 fit_sarima = SARIMAX(bike['num_rides'], order = (1,0,1), seasonal_order=(1,1,0,12)).fit()
 
-fit_sarima.resid.plot()
+fit_sarima.resid.iloc[12:].plot()
 
+fit_sarima.summary()
 
+# SARIMA model fit
 bike_plot = bike['num_rides'].plot(figsize = (10,6), title = "Seasonal ARIMA Model Bike Share Fit")
 bike_plot.set_ylabel("Number of Bike rentals")
 bike_plot.set_xlabel("Year")
 
-fit_sarima.fittedvalues.plot(ax = bike_plot, style = '--', color = 'DarkOrange')
+fit_sarima.fittedvalues.iloc[12:].plot(ax = bike_plot, style = '--', color = 'DarkOrange')
 bike_plot.legend(['Bike Rentals', 'SARIMA Model Fit'])
 
+
+# Plotting SARIMA model residuals and QQ-plot
+fig, axes = plt.subplots(1, 2, figsize=(10,4))
+
+fig = sm.qqplot(fit_sarima.resid.iloc[12:], line='45', fit=True, ax=axes[0])
+fig = fit_sarima.resid.iloc[12:].plot(title="H-W Method Residual Plot", ax=axes[1])
+
+
+# SARIMA forecast
+bike_plot = bike['num_rides'].plot(figsize = (10,6), title = "Seasonal ARIMA Model Forecast")
+fit_sarima.forecast(12).plot(ax = ax,style = '--', color = 'DarkOrange')
 
 
 
