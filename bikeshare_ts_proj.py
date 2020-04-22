@@ -43,7 +43,7 @@ np.average(np.absolute((fit_hw.fittedvalues - bike['num_rides']) / bike['num_rid
 fig, axes = plt.subplots(1, 2, figsize=(10,4))
 
 fig = sm.qqplot(fit_hw.resid, line='45', fit=True, ax=axes[0])
-fig = fit_hw.resid.plot(title="H-W Method Residual Plot", ax=axes[1]);
+fig = fit_hw.resid.plot(title="H-W Method Residual Plot", ax=axes[1])
 
 
 # Then for making forecasts with the H-W model
