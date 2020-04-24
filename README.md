@@ -20,7 +20,10 @@ Time Series analysis:
 
 
 ## Project Description
-(Provide more detailed overview of the project.  Talk a bit about your data sources and what questions and hypothesis you are exploring. What specific data analysis/visualization and modelling work are you using to solve the problem? What blockers and challenges are you facing?  Feel free to number or bullet point things here)
+
+Over 6 years of data was provided by Capital Bikeshare, a bike sharing company that operates in the Washington DC metro area. The data tracks every one of their bikes that have been rented since 2011, the duration of the bike ride, and the starting and ending location of the trips. I downloaded all of the available data since 2013 and aggregated the values into monthly bike rentals in order to analyze the behavior of ridership throughout the years. 
+
+With 6 years worth of data, the full data set grew to be bigger than something that could be handled in-memory with my own computer, so instead of loading everything up into pandas, I utilized PostgreSQL for data loading and aggregation. As a solution, I loaded and aggregated the data in chunks. 
 
 
 ## Table of Contents
