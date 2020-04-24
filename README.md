@@ -1,6 +1,6 @@
 # Bicycle Sharing Time Series Analysis and Forecasting
 
-The purpose of this project is ________. (Describe the main goals of the project and potential civic impact. Limit to a short paragraph, 3-6 Sentences)
+Bike sharing is a form of transportation in urban areas where passengers can get rent bikes from a number of public stations litered throughout a city for minutes or hours at a time and return them at any public station. Whether for leisurely riding or as a main method for commuting throughout the city, bike sharing has the potential to transform how we move around cities as many densely populated metro areas can frequently be navigated quicker by bike than by car. I performed an end-to-end time series analysis of bicycle rental data from the bike sharing company, Capital Bikeshare. I thought it would be interesting to dive into the data and extract insight into the behavior and trends of riders throughout the years and see how bike sharing has been developing as a major form of public transportation. With the models, I was also interested in performing forecasts of business growth in the upcoming year.
 
 
 ## Methods Used
