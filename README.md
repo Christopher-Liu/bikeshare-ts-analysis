@@ -25,6 +25,8 @@ Over 6 years of data was provided by Capital Bikeshare, a bike sharing company t
 
 With 6 years worth of data, the full data set grew to be bigger than something that could be handled in-memory with my own computer, so instead of loading everything up into pandas, I utilized PostgreSQL for data loading and aggregation. As a solution, I loaded and aggregated the data in chunks. 
 
+With the data aggregated into monthly values, it could be loaded into pandas for further exploration and analysis. I mainly used matplotlib and statsmodels for all data exploration and analysis purposes. 
+
 
 ## Table of Contents
 1. [Data Aggregation and EDA](https://github.com/Christopher-Liu/bikeshare-ts-analysis/blob/master/1-Data_Aggregation_and_EDA.ipynb) 
